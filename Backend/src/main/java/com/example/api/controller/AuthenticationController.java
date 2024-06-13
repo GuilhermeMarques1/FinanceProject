@@ -63,6 +63,7 @@ public class AuthenticationController {
         System.out.println(data.login());
         System.out.println(encryptedPassword);
         System.out.println(data.role());
+        String teste = "teste";
 
         Person newUser = new Person(data.login(), encryptedPassword, data.role(), "teste", "teste");
 
