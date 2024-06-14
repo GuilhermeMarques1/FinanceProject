@@ -15,7 +15,7 @@ public class Person extends Usuario {
   }
 
   public Person(String login, String senha, UserRole role, String nome, String sobrenome) {
-    super.setLogin(login);
+    super.setEmail(login);
     super.setSenha(senha);
     super.setRole(role);
     this.nome = nome;

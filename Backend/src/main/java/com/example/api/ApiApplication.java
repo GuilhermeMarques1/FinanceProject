@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
-// @EntityScan(basePackages = {"com.example.api.model"})
-// @ComponentScan(basePackages = {"com.*"})
 @EntityScan(basePackages = {"com.example.api.model"})
-@ComponentScan(basePackages =  {"com.*"})
+@ComponentScan(basePackages = {"com.*"})
 @EnableJpaRepositories(basePackages = {"com.example.api.repository"})
 @EnableTransactionManagement
 @EnableWebMvc
