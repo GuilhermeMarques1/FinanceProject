@@ -23,6 +23,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
     @Autowired
     private UsuarioRepository usuarioRepository;
+
     // Método que será chamado quando o filtro for invocaco
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -42,22 +43,21 @@ public class SecurityFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-        // Caso não encontre token nenhum, não salva nenhum contexto e continua para o próximo filtro
+        // Caso não encontre token nenhum, não salva nenhum contexto e continua para o
+        // próximo filtro
         filterChain.doFilter(request, response);
     }
 
-    private String recoverToken(HttpServletRequest request){
+    private String recoverToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
         System.out.println("Chegou aki");
         System.out.println(authHeader);
-        if (authHeader == null){
-					System.out.println("Retornando null");
-					return null;
+        if (authHeader == null) {
+            System.out.println("Retornando null");
+            return null;
         }
         var aux = authHeader.replace("Bearer ", "");
-        System.out.println(aux);
+        System.out.println("aux: " + aux);
         return aux;
-
     }
-
 }

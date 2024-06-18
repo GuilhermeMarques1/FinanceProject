@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.api.model.OpUnica;
 import com.example.api.model.Operacao;
 import com.example.api.repository.OperacaoRepository;
 
@@ -14,7 +15,7 @@ public class OperacaoService {
     @Autowired
     private OperacaoRepository operacaoRepository;
 
-    public Optional<Operacao> loadOperacaoById(Long id) {
+    public Optional<OpUnica> loadOperacaoById(Long id) {
         return operacaoRepository.findById(id);
     }
     
