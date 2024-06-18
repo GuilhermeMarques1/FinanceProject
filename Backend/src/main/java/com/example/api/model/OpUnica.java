@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.DocFlavor.STRING;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -37,7 +39,8 @@ public class OpUnica {
 	private String nome;
 	private String descricao;
 	private Float valor;
-	private LocalDateTime data;
+	private String data;
+	private String type;
 
 	// @SuppressWarnings("removal")
 	// @org.hibernate.annotations.ForeignKey(name="usuario_id")
@@ -68,8 +71,16 @@ public class OpUnica {
 		return valor;
 	}
 
-	public LocalDateTime getData() {
+	public String getData() {
 		return data;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setId(long id) {
@@ -88,7 +99,7 @@ public class OpUnica {
 		this.valor = valor;
 	}
 
-	public void setData(LocalDateTime data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

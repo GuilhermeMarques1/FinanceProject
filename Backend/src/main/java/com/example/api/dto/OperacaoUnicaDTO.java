@@ -14,7 +14,8 @@ public class OperacaoUnicaDTO{
   private String nome;
   private String descricao;
   private Long usuario;
+  private String type;
   private Float valor;
-  private LocalDateTime data;
+  private String data;
   private List<Long> categoriasId;
 }

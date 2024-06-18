@@ -37,8 +37,9 @@ public class OpRecorrente {
 	private String nome;
 	private String descricao;
 	private Float valor;
-	private LocalDateTime dataInicial;
-	private LocalDateTime dataFinal;
+	private String dataInicial;
+	private String dataFinal;
+	private String type;
 
 	// @SuppressWarnings("removal")
 	// @org.hibernate.annotations.ForeignKey(name="usuario_id")
@@ -69,12 +70,20 @@ public class OpRecorrente {
 		return valor;
 	}
 
-	public LocalDateTime getDataInicial() {
+	public String getDataInicial() {
 		return dataInicial;
 	}
 
-	public LocalDateTime getDataFinal() {
+	public String getDataFinal() {
 		return dataFinal;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setId(long id) {
@@ -93,11 +102,11 @@ public class OpRecorrente {
 		this.valor = valor;
 	}
 
-	public void setDataInicial(LocalDateTime data) {
+	public void setDataInicial(String data) {
 		this.dataInicial = data;
 	}
 
-	public void setDataFinal(LocalDateTime data) {
+	public void setDataFinal(String data) {
 		this.dataFinal = data;
 	}
 

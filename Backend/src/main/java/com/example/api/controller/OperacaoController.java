@@ -75,6 +75,7 @@ public class OperacaoController {
 				.descricao(operacaoDTO.getDescricao())
 				.usuario(user.get())
 				.valor(operacaoDTO.getValor())
+				.type(operacaoDTO.getType())
 				.data(operacaoDTO.getData())
 				.build();
 
@@ -99,6 +100,7 @@ public class OperacaoController {
 				.descricao(operacaoDTO.getDescricao())
 				.usuario(user.get())
 				.valor(operacaoDTO.getValor())
+				.type(operacaoDTO.getType())
 				.dataInicial(operacaoDTO.getDataInicial())
 				.dataFinal(operacaoDTO.getDataFinal())
 				.build();

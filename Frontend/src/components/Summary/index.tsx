@@ -10,26 +10,40 @@ export function Summary() {
   const { transactions } = useTransaction();
 
   const summary = transactions.reduce((acc, transaction) => {
-    if(transaction.type === 'deposit') {
-      acc.deposits += transaction.amount;
-      acc.total += transaction.amount;
-      return acc;
+    if(transaction.recurrence === 'unique') {
+      if(transaction.type === 'deposit') {
+        acc.deposits += transaction.amount;
+        acc.total += transaction.amount;
+        return acc;
+      } else {
+        acc.withdraws -= transaction.amount;
+        acc.total -= transaction.amount;
+        return acc;
+      }
     } else {
-      acc.withdraws -= transaction.amount;
-      acc.total -= transaction.amount;
-      return acc;
+      if(transaction.type === 'deposit') {
+        acc.depositsRec += transaction.amount;
+        acc.total += transaction.amount;
+        return acc;
+      } else {
+        acc.withdrawsRec -= transaction.amount;
+        acc.total -= transaction.amount;
+        return acc;
+      }
     }
   }, {
     deposits: 0,
     withdraws: 0,
     total: 0,
+    depositsRec: 0,
+    withdrawsRec: 0,
   });
 
   return(
     <Container>
       <div>
         <header>
-          <p>Entradas</p>
+          <p>Entradas Únicas</p>
           <img src={incomeImg} alt="income icon" />
         </header>
         <strong>
@@ -44,7 +58,7 @@ export function Summary() {
 
       <div>
         <header>
-          <p>Saídas</p>
+          <p>Saídas Únicas</p>
           <img src={outcomeImg} alt="outcome icon" />
         </header>
         <strong>
@@ -57,9 +71,39 @@ export function Summary() {
         </strong>
       </div>
 
+      <div>
+        <header>
+          <p>Entradas recorrentes</p>
+          <img src={incomeImg} alt="income icon" />
+        </header>
+        <strong>
+          {
+            new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(summary.depositsRec)
+          }
+        </strong>
+      </div>
+
+      <div>
+        <header>
+          <p>Saídas Recorrentes</p>
+          <img src={outcomeImg} alt="outcome icon" />
+        </header>
+        <strong>
+          {
+            new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(summary.withdrawsRec)
+          }
+        </strong>
+      </div>
+
       <div className="highlight-background">
         <header>
-          <p>Total</p>
+          <p>Saldo Total</p>
           <img src={totalImg} alt="total" />
         </header>
         <strong>

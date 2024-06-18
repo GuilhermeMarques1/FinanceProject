@@ -9,6 +9,7 @@ interface Transaction {
   amount: number,
   category: string,
   createAt: string,
+  recurrence: string
 }
 
 type TransactionInput = Omit<Transaction, 'id' | 'createAt'>
@@ -31,11 +32,13 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
 
     api2.get("/operacao/", {
       headers: {
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Imd1aUB1bmVzcC5iciIsImV4cCI6MTcxODc0NDA2NX0.3Ikt617MA-i6oq5kG0zIh7v-x3ZANLixe_KZitIhGVE`
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
       }
     })
       .then((response) => {
         const { operacoesRecorrentes, operacoesUnicas } = response.data;
+
+        console.log(response.data);
 
         const formattedTransactionsUnicas: Transaction[] = operacoesUnicas.map((op: any) => {
           return {
@@ -43,8 +46,9 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
             title: op.nome,
             amount: op.valor,
             category: op.descricao,
-            createAt: '123',
-            type: 'deposit'
+            createAt: op.data,
+            type: op.type,
+            recurrence: 'unique'
           } as Transaction
         })
 
@@ -54,8 +58,9 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
             title: op.nome,
             amount: op.valor,
             category: op.descricao,
-            createAt: '123',
-            type: 'deposit'
+            createAt: op.dataInicial,
+            type: op.type,
+            recurrence: 'recurrence'
           } as Transaction
         })
 
@@ -65,15 +70,29 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   }, [])
 
   async function createTransaction(transactionInput: TransactionInput) {
-    const response = await api.post('/transactions', {
-      ...transactionInput,
-      createAt: new Date(),
-    });
-    const { transaction } = response.data;
+    // const response = await api.post('/transactions', {
+    //   ...transactionInput,
+    //   createAt: new Date(),
+    // });
+    // const { transaction } = response.data;
+
+    const recurrence = transactionInput.recurrence === 'unique' ? 'unica' : 'recorrente';
+    await api2.post(`/operacao/${recurrence}`, {
+      nome: transactionInput.title,
+      descricao: transactionInput.category,
+      valor: transactionInput.amount,
+      type: transactionInput.type,
+      data: new Date().toISOString().slice(0, 19)
+    }, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+      }
+    })
+
 
     setTransactions([
       ...transactions,
-      transaction
+      // transaction
     ]);
   }
 

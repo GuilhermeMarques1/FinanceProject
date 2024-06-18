@@ -15,7 +15,8 @@ public class OperacaoRecorrenteDTO{
   private String descricao;
   private Long usuario;
   private Float valor;
-  private LocalDateTime dataInicial;
-  private LocalDateTime dataFinal;
+  private String type;
+  private String dataInicial;
+  private String dataFinal;
   private List<Long> categoriasId;
 }

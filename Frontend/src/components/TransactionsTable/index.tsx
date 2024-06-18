@@ -5,6 +5,8 @@ import { Container } from "./styles";
 export function TransactionsTable() {
   const { transactions } = useTransaction();
 
+  console.log(transactions)
+
   return(
     <Container>
       <table>
@@ -14,6 +16,7 @@ export function TransactionsTable() {
             <th>Valor</th>
             <th>Categoria</th>
             <th>Data</th>
+            <th>Tipo</th>
           </tr>
         </thead>
 
@@ -36,6 +39,11 @@ export function TransactionsTable() {
                     Intl.DateTimeFormat("pt-BR").format(
                       new Date(transaction.createAt)
                     )
+                  }
+                </td>
+                <td>
+                  {
+                    transaction.recurrence === "unique" ? "Única" : "Recorrente"
                   }
                 </td>
               </tr>
