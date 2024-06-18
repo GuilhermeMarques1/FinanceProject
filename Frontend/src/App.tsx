@@ -6,12 +6,6 @@ import { Dashboard } from "./components/Dashboard";
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { TransactionsProvider } from "./hooks/useTransaction";
 
-// import styled from "styled-components";
-// const Title = styled.h1`
-//   font-size: 64px;
-//   color: red;
-// `;
-
 Modal.setAppElement('#root');
 
 function App() {
@@ -26,14 +20,12 @@ function App() {
   }
 
   return (
-    // <TransactionsContext.Provider value={[]}>
     <TransactionsProvider>
       <GlobalStyle />
       <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal}/>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
       <Dashboard />
     </TransactionsProvider>
-    // </TransactionsContext.Provider>
   );
 }
 
