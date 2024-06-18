@@ -1,6 +1,5 @@
 package com.example.api.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,11 +29,6 @@ public class Usuario implements UserDetails {
   private String email;
   private String senha;
   private String nome;
-  private LocalDateTime nascimento;
-  private String CPF;
-  private float valorConta;
-
-  private UserRole role;
 
 
   @OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -45,17 +39,15 @@ public class Usuario implements UserDetails {
         
   }
 
-  public Usuario(String login, String senha, String nome, UserRole role){
-      this.email = login;
-      this.senha = senha;
-      this.nome = nome;
-      this.role = role;
+  public Usuario(String login, String senha, String nome){
+    this.email = login;
+    this.senha = senha;
+    this.nome = nome;
   }
 
-  public Usuario(String login, String senha, UserRole role){
-      this.email = login;
-      this.senha = senha;
-      this.role = role;
+  public Usuario(String login, String senha){
+    this.email = login;
+    this.senha = senha;
   }
 
   public long getId() {
@@ -98,52 +90,9 @@ public class Usuario implements UserDetails {
     this.operacoes = operacoes;
   }
 
-  public String getCPF() {
-      return CPF;
-  }
-
-  public void setCPF(String cPF) {
-      CPF = cPF;
-  }
-
-  public LocalDateTime getNascimento() {
-      return nascimento;
-  }
-
-  public void setNascimento(LocalDateTime nascimento) {
-      this.nascimento = nascimento;
-  }
-
-  public float getValorConta() {
-      return valorConta;
-  }
-
-  public void setValorConta(float valorConta) {
-      this.valorConta = valorConta;
-  }
-  
-  public UserRole getRole() {
-      return role;
-  }
-
-  public void setRole(UserRole role) {
-      this.role = role;
-  }
-
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-        // O Spring Security já tem algumas roles implementadas. Repare que 
-        // nesse método o retorno é uma colection, então cada usuário pode ter
-        // vários papéis (roles). Por exemplo, um ADMIN é ao mesmo tempo USER
-        // norma. Um CHEFE é ao mesmo tempo ADMIN e USER normal, ...
-        if (this.role == UserRole.ADMIN){
-          return List.of(
-              new SimpleGrantedAuthority("ROLE_ADMIN"),   // Admin
-              new SimpleGrantedAuthority("ROLE_USER")     // é ao mesmo tempo user normal
-              );
-      }else{
-          return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-      }
+    return List.of(new SimpleGrantedAuthority("ROLE_USER"));
   }
 
   @Override

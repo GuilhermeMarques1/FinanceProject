@@ -51,8 +51,8 @@ public class SecurityFilter extends OncePerRequestFilter {
         System.out.println("Chegou aki");
         System.out.println(authHeader);
         if (authHeader == null){
-            System.out.println("Retornando null");
-         return null;
+					System.out.println("Retornando null");
+					return null;
         }
         var aux = authHeader.replace("Bearer ", "");
         System.out.println(aux);

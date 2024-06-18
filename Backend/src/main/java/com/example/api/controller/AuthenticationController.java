@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.model.AuthenticationDTO;
 import com.example.api.model.LoginResponseDTO;
-import com.example.api.model.Person;
 import com.example.api.model.RegisterDTO;
 import com.example.api.model.Usuario;
 import com.example.api.repository.UsuarioRepository;
@@ -56,9 +55,9 @@ public class AuthenticationController {
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         System.out.println(data.login());
         System.out.println(encryptedPassword);
-        System.out.println(data.role());
 
-        Person newUser = new Person(data.login(), encryptedPassword, data.role(), "teste", "teste2");
+        // Usuario newUser = new Usuario(data.login(), encryptedPassword, "teste", "teste2");
+        Usuario newUser = new Usuario(data.login(), encryptedPassword, data.nome());
 
         this.usuarioRepository.save(newUser);
 
